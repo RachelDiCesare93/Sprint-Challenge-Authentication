@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import {Route, withRouter} from 'react-router-dom';
+import Login from './components/login';
+import Register from './components/register';
+import Jokes from './components/jokes';
+
+
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,13 +16,18 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to the world of JOKES</h1>
+          <button onClick={this.logout}>Logout</button>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <Route path = "/login" component = {Login}> </Route>
+          <Route path = "/register" component = {Register}> </Route>
+          <Route path = "/jokes" component = {Jokes}> </Route>
       </div>
     );
   }
+  logout = event => {
+    localStorage.removeItem('jwt');
+    this.props.history.push('/login');
+  }
 }
 
-export default App;
+export default withRouter(App);
